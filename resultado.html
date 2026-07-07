@@ -5,12 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>O seu resultado — Equipa Soares</title>
 <meta name="robots" content="noindex">
-
 <!-- Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-
 <!-- ══════════════ META PIXEL ══════════════ -->
 <script>
 !function(f,b,e,v,n,t,s)
@@ -21,9 +19,8 @@ n.queue=[];t=b.createElement(e);t.async=!0;
 t.src=v;s=b.getElementsByTagName(e)[0];
 s.parentNode.insertBefore(t,s)}(window, document,'script',
 'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', 'PIXEL_ID_AQUI');
+fbq('init', '1025899160413527');
 fbq('track', 'PageView');
-
 // Função Lead preparada para ativação futura
 function trackLead(scoreViabilidade) {
   try {
@@ -37,10 +34,9 @@ function trackLead(scoreViabilidade) {
 }
 </script>
 <noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=PIXEL_ID_AQUI&ev=PageView&noscript=1"
+src="https://www.facebook.com/tr?id=1025899160413527&ev=PageView&noscript=1"
 /></noscript>
 <!-- ════════════ FIM META PIXEL ════════════ -->
-
 <style>
 :root{
   --azul:#2E6FAE;
@@ -55,7 +51,6 @@ src="https://www.facebook.com/tr?id=PIXEL_ID_AQUI&ev=PageView&noscript=1"
   --sombra:0 8px 30px rgba(30,41,59,.08);
   --transicao:.25s ease;
 }
-
 *{margin:0;padding:0;box-sizing:border-box;}
 body{
   font-family:'Inter',sans-serif;
@@ -67,7 +62,6 @@ body{
 h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;line-height:1.25;}
 a{color:var(--azul);}
 .contentor{max-width:860px;margin:0 auto;padding:0 1.25rem;}
-
 /* ───────── CABEÇALHO ───────── */
 .cabecalho{
   background:linear-gradient(160deg, #1C3A58 0%, var(--azul) 100%);
@@ -92,7 +86,6 @@ a{color:var(--azul);}
 .cabecalho h1{font-size:clamp(1.7rem,4.5vw,2.5rem);margin-bottom:.5rem;}
 .cabecalho p{color:rgba(255,255,255,.85);max-width:560px;margin:0 auto;font-size:.98rem;}
 .cabecalho .saudacao{font-weight:600;color:var(--branco);}
-
 /* ───────── CARTÃO DE SCORE ───────── */
 .cartao-score{
   background:var(--branco);
@@ -124,7 +117,6 @@ a{color:var(--azul);}
 .badge.excelente{background:#E7F5EE;color:var(--verde);border:1px solid #BCE3CF;}
 .badge.bom{background:#EBF3FA;color:var(--azul);border:1px solid #C8DCEE;}
 .badge.moderado{background:#FAF3E5;color:var(--ambar);border:1px solid #EDDCB8;}
-
 /* barra de score animada */
 .score-barra-wrap{margin-top:1.8rem;}
 .score-barra{
@@ -145,7 +137,6 @@ a{color:var(--azul);}
   margin-top:1.5rem;font-size:.95rem;color:#52617A;
   max-width:560px;margin-left:auto;margin-right:auto;
 }
-
 /* ───────── CARTÕES PRAZO / MOTIVO ───────── */
 .grelha-info{
   display:grid;grid-template-columns:1fr;gap:1rem;
@@ -167,7 +158,6 @@ a{color:var(--azul);}
 }
 .cartao-info h3{font-family:'Inter',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A8AA0;margin-bottom:.25rem;}
 .cartao-info p{font-size:1rem;font-weight:600;color:var(--texto);}
-
 /* ───────── CITAÇÃO ───────── */
 .citacao{
   margin:2.6rem auto 0;
@@ -188,13 +178,11 @@ a{color:var(--azul);}
   font-style:normal;font-size:.82rem;font-weight:600;
   letter-spacing:.1em;text-transform:uppercase;color:var(--azul);
 }
-
 /* ───────── SECÇÕES ───────── */
 .seccao{padding:3.4rem 0 0;}
 .seccao-titulo{text-align:center;margin-bottom:2rem;}
 .seccao-titulo h2{font-size:clamp(1.5rem,3.8vw,2rem);}
 .seccao-titulo p{color:#52617A;font-size:.95rem;margin-top:.4rem;}
-
 /* ───────── TIMELINE ───────── */
 .timeline{position:relative;max-width:620px;margin:0 auto;}
 .timeline::before{
@@ -227,7 +215,6 @@ a{color:var(--azul);}
 }
 .etapa-corpo h3{font-size:1.05rem;margin-bottom:.25rem;}
 .etapa-corpo p{font-size:.88rem;color:#52617A;}
-
 /* ───────── CARDS CONSIDERAR ───────── */
 .grelha-considerar{
   display:grid;grid-template-columns:1fr;gap:1rem;
@@ -248,7 +235,6 @@ a{color:var(--azul);}
 }
 .cartao-considerar h3{font-size:1.06rem;margin-bottom:.5rem;}
 .cartao-considerar p{font-size:.87rem;color:#52617A;}
-
 /* ───────── CONTACTOS ───────── */
 .seccao-contactos{
   margin-top:3.6rem;
@@ -304,7 +290,6 @@ a{color:var(--azul);}
   transition:all var(--transicao);
 }
 .linha-instagram a:hover{border-color:var(--azul);background:#EBF3FA;}
-
 /* ───────── RODAPÉ ───────── */
 .rodape{
   background:var(--texto);
@@ -319,14 +304,12 @@ a{color:var(--azul);}
   margin-bottom:.4rem;
 }
 .rodape a{color:rgba(255,255,255,.85);}
-
 @media (prefers-reduced-motion: reduce){
   *{animation:none!important;transition:none!important;}
 }
 </style>
 </head>
 <body>
-
 <!-- CABEÇALHO -->
 <header class="cabecalho">
   <div class="marca">Equipa <span>Soares</span></div>
@@ -334,9 +317,7 @@ a{color:var(--azul);}
   <h1>A sua análise de viabilidade</h1>
   <p><span class="saudacao" id="saudacaoNome"></span>Com base nas suas respostas, preparámos uma leitura estruturada da sua situação para a troca de casa.</p>
 </header>
-
 <main class="contentor">
-
   <!-- SCORE -->
   <section class="cartao-score">
     <div class="score-rotulo">Score de Viabilidade</div>
@@ -348,7 +329,6 @@ a{color:var(--azul);}
     </div>
     <p class="score-descricao" id="scoreDescricao"></p>
   </section>
-
   <!-- PRAZO E MOTIVO -->
   <div class="grelha-info">
     <div class="cartao-info">
@@ -370,13 +350,11 @@ a{color:var(--azul);}
       </div>
     </div>
   </div>
-
   <!-- CITAÇÃO -->
   <div class="citacao">
     <blockquote>“Uma troca de casa bem-sucedida não depende de sorte — depende de uma estratégia clara, definida antes do primeiro passo.”</blockquote>
     <cite>Equipa Soares · Consultoria Imobiliária</cite>
   </div>
-
   <!-- TIMELINE -->
   <section class="seccao">
     <div class="seccao-titulo">
@@ -407,7 +385,6 @@ a{color:var(--azul);}
       </div>
     </div>
   </section>
-
   <!-- CONSIDERAR -->
   <section class="seccao">
     <div class="seccao-titulo">
@@ -431,9 +408,7 @@ a{color:var(--azul);}
       </div>
     </div>
   </section>
-
 </main>
-
 <!-- CONTACTOS -->
 <section class="seccao-contactos">
   <div class="contentor">
@@ -469,48 +444,39 @@ a{color:var(--azul);}
     </div>
   </div>
 </section>
-
 <!-- RODAPÉ -->
 <footer class="rodape">
   <div class="marca-rodape">Equipa Soares</div>
   <div>Consultoria Imobiliária · Portugal</div>
 </footer>
-
 <script>
 (function(){
   'use strict';
-
   /* ════════ CONFIGURAÇÃO ════════ */
   var CHAVE_STORAGE = 'sim_equipa_soares';
   var MENSAGEM_WHATSAPP = 'Olá, concluí o simulador de troca de casa e gostaria de receber uma orientação sobre os próximos passos.';
   var TEL_ADELIA = '351967165989';
   var TEL_RICARDO = '351918360813';
-
   /* ════════ LER DADOS ════════ */
   var dados = null;
   try {
     var bruto = sessionStorage.getItem(CHAVE_STORAGE);
     if (bruto) dados = JSON.parse(bruto);
   } catch(e){}
-
   if (!dados || typeof dados.score_viabilidade === 'undefined'){
     window.location.replace('index.html');
     return;
   }
-
   var score = Math.max(0, Math.min(10, parseFloat(dados.score_viabilidade) || 0));
-
   /* ════════ SAUDAÇÃO ════════ */
   var saudacao = document.getElementById('saudacaoNome');
   if (dados.nome){
     var primeiroNome = dados.nome.split(/\s+/)[0];
     saudacao.textContent = primeiroNome + ', ';
   }
-
   /* ════════ BADGE E DESCRIÇÃO ════════ */
   var badge = document.getElementById('scoreBadge');
   var descricao = document.getElementById('scoreDescricao');
-
   if (score >= 8){
     badge.textContent = 'Excelente';
     badge.classList.add('excelente');
@@ -524,17 +490,13 @@ a{color:var(--azul);}
     badge.classList.add('moderado');
     descricao.textContent = 'A sua situação requer um planeamento mais cuidadoso, mas isso não significa que o projeto não seja viável. Com a orientação certa, é possível estruturar um caminho seguro para a sua troca de casa.';
   }
-
   /* ════════ ANIMAÇÃO DO SCORE ════════ */
   var scoreNumero = document.getElementById('scoreNumero');
   var scoreBarra = document.getElementById('scoreBarra');
-
   function formatarScore(v){
     return (Math.round(v * 10) / 10).toString().replace('.', ',');
   }
-
   var reduzMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
   if (reduzMotion){
     scoreNumero.textContent = formatarScore(score);
     scoreBarra.style.transition = 'none';
@@ -555,11 +517,9 @@ a{color:var(--azul);}
       scoreBarra.style.width = (score * 10) + '%';
     }, 150);
   }
-
   /* ════════ CARTÕES PRAZO / MOTIVO ════════ */
   document.getElementById('infoPrazo').textContent = dados.prazo || '—';
   document.getElementById('infoMotivo').textContent = dados.motivo || '—';
-
   /* ════════ TEXTO CONDICIONAL DE CRÉDITO ════════ */
   var textoCredito = document.getElementById('textoCredito');
   if (dados.credito_ativo === 'Sim'){
@@ -567,7 +527,6 @@ a{color:var(--azul);}
   } else {
     textoCredito.textContent = 'Como o seu imóvel está pago, parte numa posição financeira privilegiada. O capital libertado pela venda dá-lhe maior poder negocial e flexibilidade na escolha da próxima casa.';
   }
-
   /* ════════ WHATSAPP ════════ */
   var msg = encodeURIComponent(MENSAGEM_WHATSAPP);
   document.getElementById('whatsAdelia').href = 'https://wa.me/' + TEL_ADELIA + '?text=' + msg;
