@@ -73,37 +73,27 @@ em.serif{
 /* ═════════ HERO ═════════ */
 .hero{
   position:relative;min-height:100svh;display:flex;flex-direction:column;
-  overflow:hidden;isolation:isolate;
+  overflow:hidden;isolation:isolate;color:#fff;
+  background:
+    radial-gradient(118% 88% at 10% 106%, rgba(168,196,208,.5) 0%, rgba(168,196,208,0) 58%),
+    radial-gradient(92% 74% at 94% -10%, rgba(21,100,156,.6) 0%, rgba(21,100,156,0) 64%),
+    linear-gradient(212deg, #0A3A63 0%, #124E80 44%, #1C608F 100%);
 }
-.hero-fundo{
-  position:absolute;inset:0;width:100%;height:100%;
-  object-fit:cover;object-position:center 62%;z-index:-2;
-}
-.hero-veu{
-  position:absolute;inset:0;z-index:-1;
-  background:linear-gradient(180deg,
-    rgba(255,255,255,.96) 0%,
-    rgba(255,255,255,.9) 24%,
-    rgba(255,255,255,.62) 46%,
-    rgba(255,255,255,.18) 66%,
-    rgba(255,255,255,0) 88%);
+.hero::after{
+  content:'';position:absolute;inset:0;z-index:-1;pointer-events:none;
+  opacity:.4;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.4'/%3E%3C/svg%3E");
 }
 
 /* topo */
 .topo{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  padding:16px 20px;max-width:1200px;margin:0 auto;width:100%;
+  display:flex;align-items:center;justify-content:center;
+  padding:22px 20px 8px;width:100%;
 }
-.perfil{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tinta)}
-.perfil img{width:38px;height:38px;border-radius:50%;box-shadow:0 3px 10px -4px rgba(10,32,52,.5)}
-.perfil b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
-.perfil .arroba{display:block;font-size:12px;color:var(--suave)}
-.btn-topo{
-  background:var(--escuro);color:#fff;border:0;border-radius:999px;
-  padding:11px 20px;font-size:13.6px;font-weight:600;cursor:pointer;white-space:nowrap;
-  transition:transform .18s ease,background .18s ease;
-}
-.btn-topo:hover{transform:translateY(-1px);background:#0A1620}
+.perfil{display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:#fff}
+.perfil img{width:46px;height:46px;border-radius:50%;box-shadow:0 6px 18px -8px rgba(4,22,40,.8)}
+.perfil b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.25;text-align:center}
+.perfil .arroba{display:block;font-size:12px;color:rgba(255,255,255,.72);text-align:center}
 
 /* centro */
 .hero-centro{
@@ -112,47 +102,35 @@ em.serif{
 }
 .pilula{
   display:inline-flex;align-items:center;gap:8px;
-  background:rgba(255,255,255,.7);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
-  border:1px solid rgba(16,28,38,.09);border-radius:999px;
-  padding:7px 15px 7px 11px;font-size:12.6px;font-weight:500;color:var(--suave);
+  background:rgba(255,255,255,.13);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);
+  border:1px solid rgba(255,255,255,.26);border-radius:999px;
+  padding:7px 15px 7px 11px;font-size:12.6px;font-weight:500;color:#D8E7F2;
   margin-bottom:clamp(16px,3.4vh,26px);
 }
-.pilula i{width:7px;height:7px;border-radius:50%;background:var(--marca);display:inline-block;flex:0 0 auto}
+.pilula i{width:7px;height:7px;border-radius:50%;background:#A8C4D0;display:inline-block;flex:0 0 auto}
 h1{
   margin:0 0 clamp(14px,2.6vh,20px);
   font-size:clamp(33px,8.2vw,72px);
   font-weight:500;line-height:1.03;letter-spacing:-.038em;
   text-wrap:balance;max-width:15ch;
 }
-h1 em.serif{font-size:1.04em;letter-spacing:-.02em}
+h1 em.serif{font-size:1.04em;letter-spacing:-.02em;color:#A8C4D0}
 .sub{
-  margin:0 0 clamp(22px,4vh,34px);color:var(--suave);
+  margin:0 0 clamp(24px,4.4vh,36px);color:rgba(255,255,255,.78);
   font-size:clamp(14.6px,3.7vw,18px);line-height:1.6;max-width:54ch;
 }
-.barra-inicio{
-  display:flex;align-items:center;gap:8px;width:100%;max-width:560px;
-  background:var(--branco);border-radius:999px;padding:7px 7px 7px 20px;
-  box-shadow:0 18px 44px -22px rgba(10,32,52,.45);
-  border:1px solid rgba(16,28,38,.06);
+.btn-hero{
+  background:#fff;color:#0A3A63;border:0;border-radius:999px;
+  padding:17px 34px;font-size:15.6px;font-weight:600;cursor:pointer;
+  box-shadow:0 18px 40px -20px rgba(4,22,40,.85);
+  transition:transform .18s ease,box-shadow .18s ease;
 }
-.barra-inicio input{
-  flex:1;min-width:0;border:0;outline:none;background:transparent;
-  font-family:inherit;font-size:15.4px;color:var(--tinta);padding:10px 0;
-}
-.barra-inicio input::placeholder{color:#8A9CAB}
-.barra-inicio button{
-  flex:0 0 auto;background:var(--escuro);color:#fff;border:0;border-radius:999px;
-  padding:14px 22px;font-size:14.6px;font-weight:600;cursor:pointer;
-  transition:transform .18s ease,background .18s ease;
-}
-.barra-inicio button:hover{transform:translateY(-1px);background:#0A1620}
-.longo{display:none}
-@media (min-width:520px){ .longo{display:inline} .curto{display:none} }
+.btn-hero:hover{transform:translateY(-2px);box-shadow:0 22px 46px -20px rgba(4,22,40,.9)}
 
 .hero-base{padding:0 20px clamp(20px,4vh,34px);text-align:center}
 .hero-base p{
   margin:0;font-size:12.4px;letter-spacing:.09em;text-transform:uppercase;
-  color:rgba(16,28,38,.5);font-weight:500;
+  color:rgba(255,255,255,.88);font-weight:500;
 }
 @media (max-height:700px){
   h1{font-size:clamp(29px,7.4vw,60px)}
@@ -252,26 +230,18 @@ input:focus,select:focus{border-color:var(--marca);outline:none;box-shadow:0 0 0
 
 <!-- ═════════ HERO ═════════ -->
 <header class="hero">
-  <img class="hero-fundo" src="https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=1600&q=85" alt="" aria-hidden="true">
-  <div class="hero-veu" aria-hidden="true"></div>
-
   <nav class="topo">
     <a class="perfil" href="https://www.instagram.com/equipasoares.pt/" target="_blank" rel="noopener">
-      <img src="data:image/webp;base64,UklGRvIEAABXRUJQVlA4IOYEAACQJwCdASrAAMAAPj0ejUSiJSEmJlLoOMAHiWcHBIex06VADhDKP+HUnPUf2AcbCUA/Puer4ifSr8wHk0+p30AOli9ADphf2wygqoLAzFenxrnizqZngtE4AHpeLlHZcQlZhPhuKOosJesoqu/00GwrCM5d1jEa/ZJL8wLlzHe6R0KU7jcMHCwkIBtdRLAPSIQa7YohaZ4AdjQuFSvCmZrejv2Q47q0ihT/8MsHpsG+xZWUyTXvyaGj2IPN0jKfJc6n3COiu1YWt2O8PCMw6UrarNiOoctWGBp7wEdy9nGE+4qYDlB3pWNeax1hik9f9tMOwKCVOpLMZb7OdkD/0jVaeWQrHpdeOJPmCeqCkGvI4eYD9hjraoBCOq5B/QrvSYmTIT7InbnngjcpetBSl+lJm68kqw48JxbTdp+t5zJ+o4uW8jgAAP7QBEnWP/4ILtRyfaX/8pX+fP3ZQpb/1U+Aom5Dntnbu9gnokc9Qz9H22ZP+K1Ihx8pPI891/HsHVfL8T7CEdcPZHh9V62CzDZXWfHY2xXUgexZ0UehwWwFOG9gbPWXbmBIM2XJbtPmfGI8qZFTzbH1w0zyM3u+Zw5FsbtvPcZtjyIu2B1LNRU9GhVBj7cCH7Pmnk6/Hkfiqm6rYI15b27jZDM1cUNaidraTzFPDhId+lC/nEw/vgze56kcgLIvVXS0CZgosDGExxdh1lXqLhq25GwgEncgZd65l4xUqL+NadcY2VYzk2IphbNF0o7QeDLEGcKGLLNr1LE4iINMPERzED4liBDUWlfcve1JceAfzW9xr8+TpqdTLoG19WF4Sjej1utre3n5DqUCy0XiYVTYVX7u9eunDc6o+7m1IgTj8OwZLxwNpX51s8kMlLzSvr/LVqKLHzfftHwOVJQbs7aH1DGhsnyxkHlz2wK0QorMqxbJhnvSk5HRdxExRGBwsnf00R9vinLPQlgFJ9Yoqwq51NvZ8PmCe8jgyP8xOKG056B56Wx/LbWoAEAWP6ezzWdPPKCcwOo4a9qtDXTpP6Esps1L6XRJRPDzAroj0K9OSt0Ej+nQbTV4sGliI2VOY4uluV+ACA4aF1FhTrPb1vulT3UmR8MLevf1uRZpy5MuZXP22YDQlUpcGPYjKKN/y8Gj3e6wE4vwXGD1VTRJn3n8Nnnsqp56tpiT398CDuluTn/VPeNJGNwD8igSxZmXslLAdgM4m6DYMfQXjzfvxZpgrhUp2yBdU6E+5/+wStv52X6GorcYalfhWk2mJiOOC72iokNwDTc/o88hMkB803YA672OOBhLleVhcSshr7nnZO8eSkD6eV/fc+MdO5ZP6qvtL2QI2gSmohRDn1n97SF9XViu4EdzJuQVQw31CWE33gF/lvzR+hl0OlFaryrgwCgFUGOGoXqwQctHLSe9h3PdsN4C6+jb0+Kboiu6737SVBg0WL44RY9n3A5eFx12UqkhPQVbk2yxlNeVYmC3ZQsbRnmWRts0bu7GIyu+hC0f+RyC/iJLBqTos7ZoNws4Yeb6WjiO8Pqc6nfR4gWhzxCULRd6WCqP7l1HjaJXuq1LEumg+MLoAnj/VFs4A1TcxrSEBRja/1aoEa9RdjBX4WbCr75lALM8LDNDnk8e/58MC7cAVOBRjHd6UVEYcAgtWKa6IMNvfeB6DCsVqRWAAAA=" alt="Equipa Soares" width="38" height="38">
+      <img src="data:image/webp;base64,UklGRvIEAABXRUJQVlA4IOYEAACQJwCdASrAAMAAPj0ejUSiJSEmJlLoOMAHiWcHBIex06VADhDKP+HUnPUf2AcbCUA/Puer4ifSr8wHk0+p30AOli9ADphf2wygqoLAzFenxrnizqZngtE4AHpeLlHZcQlZhPhuKOosJesoqu/00GwrCM5d1jEa/ZJL8wLlzHe6R0KU7jcMHCwkIBtdRLAPSIQa7YohaZ4AdjQuFSvCmZrejv2Q47q0ihT/8MsHpsG+xZWUyTXvyaGj2IPN0jKfJc6n3COiu1YWt2O8PCMw6UrarNiOoctWGBp7wEdy9nGE+4qYDlB3pWNeax1hik9f9tMOwKCVOpLMZb7OdkD/0jVaeWQrHpdeOJPmCeqCkGvI4eYD9hjraoBCOq5B/QrvSYmTIT7InbnngjcpetBSl+lJm68kqw48JxbTdp+t5zJ+o4uW8jgAAP7QBEnWP/4ILtRyfaX/8pX+fP3ZQpb/1U+Aom5Dntnbu9gnokc9Qz9H22ZP+K1Ihx8pPI891/HsHVfL8T7CEdcPZHh9V62CzDZXWfHY2xXUgexZ0UehwWwFOG9gbPWXbmBIM2XJbtPmfGI8qZFTzbH1w0zyM3u+Zw5FsbtvPcZtjyIu2B1LNRU9GhVBj7cCH7Pmnk6/Hkfiqm6rYI15b27jZDM1cUNaidraTzFPDhId+lC/nEw/vgze56kcgLIvVXS0CZgosDGExxdh1lXqLhq25GwgEncgZd65l4xUqL+NadcY2VYzk2IphbNF0o7QeDLEGcKGLLNr1LE4iINMPERzED4liBDUWlfcve1JceAfzW9xr8+TpqdTLoG19WF4Sjej1utre3n5DqUCy0XiYVTYVX7u9eunDc6o+7m1IgTj8OwZLxwNpX51s8kMlLzSvr/LVqKLHzfftHwOVJQbs7aH1DGhsnyxkHlz2wK0QorMqxbJhnvSk5HRdxExRGBwsnf00R9vinLPQlgFJ9Yoqwq51NvZ8PmCe8jgyP8xOKG056B56Wx/LbWoAEAWP6ezzWdPPKCcwOo4a9qtDXTpP6Esps1L6XRJRPDzAroj0K9OSt0Ej+nQbTV4sGliI2VOY4uluV+ACA4aF1FhTrPb1vulT3UmR8MLevf1uRZpy5MuZXP22YDQlUpcGPYjKKN/y8Gj3e6wE4vwXGD1VTRJn3n8Nnnsqp56tpiT398CDuluTn/VPeNJGNwD8igSxZmXslLAdgM4m6DYMfQXjzfvxZpgrhUp2yBdU6E+5/+wStv52X6GorcYalfhWk2mJiOOC72iokNwDTc/o88hMkB803YA672OOBhLleVhcSshr7nnZO8eSkD6eV/fc+MdO5ZP6qvtL2QI2gSmohRDn1n97SF9XViu4EdzJuQVQw31CWE33gF/lvzR+hl0OlFaryrgwCgFUGOGoXqwQctHLSe9h3PdsN4C6+jb0+Kboiu6737SVBg0WL44RY9n3A5eFx12UqkhPQVbk2yxlNeVYmC3ZQsbRnmWRts0bu7GIyu+hC0f+RyC/iJLBqTos7ZoNws4Yeb6WjiO8Pqc6nfR4gWhzxCULRd6WCqP7l1HjaJXuq1LEumg+MLoAnj/VFs4A1TcxrSEBRja/1aoEa9RdjBX4WbCr75lALM8LDNDnk8e/58MC7cAVOBRjHd6UVEYcAgtWKa6IMNvfeB6DCsVqRWAAAA=" alt="Equipa Soares" width="46" height="46">
       <span><b>Equipa Soares</b><span class="arroba">@equipasoares.pt</span></span>
     </a>
-    <button type="button" class="btn-topo" data-ir-quiz>Começar diagnóstico</button>
   </nav>
 
   <div class="hero-centro">
     <span class="pilula"><i aria-hidden="true"></i> Diagnóstico gratuito em 3 minutos</span>
     <h1>A sua casa está pronta para <em class="serif">ir a mercado</em>?</h1>
     <p class="sub">Duas casas iguais, na mesma rua: uma vende em seis semanas, a outra fica oito meses à espera. A diferença raramente está no imóvel. Descubra onde está a sua.</p>
-    <div class="barra-inicio">
-      <label for="localHero" class="oculto-visual">Concelho do imóvel</label>
-      <input type="text" id="localHero" placeholder="Onde fica o seu imóvel?" autocomplete="address-level2">
-      <button type="button" data-ir-quiz><span class="longo">Começar diagnóstico</span><span class="curto">Começar</span></button>
-    </div>
+    <button type="button" class="btn-hero" data-ir-quiz>Começar diagnóstico</button>
   </div>
 
   <div class="hero-base">
@@ -646,21 +616,11 @@ function limparErro(c){
 var EMAIL_RE = /^[^\s@]+@[^\s@]+\.[a-zA-Z]{2,}$/;
 
 /* ───────── arranque a partir do hero ───────── */
-var localHero = document.getElementById('localHero');
-var localizacao = document.getElementById('localizacao');
-
 function irParaQuiz(){
-  var v = (localHero.value||'').trim();
-  if(v){
-    A.localizacao = v;
-    localizacao.value = v;
-    limparErro(campoDe('localizacao'));
-  }
   zonaQuiz.scrollIntoView({behavior:'smooth', block:'start'});
 }
 var gatilhos = document.querySelectorAll('[data-ir-quiz]');
 for(var g=0; g<gatilhos.length; g++) gatilhos[g].addEventListener('click', irParaQuiz);
-localHero.addEventListener('keydown', function(e){ if(e.key === 'Enter') irParaQuiz(); });
 
 /* ───────── navegação ───────── */
 function mostrarPasso(n){

@@ -73,7 +73,11 @@ if(DADOS && temConsentimento()) carregarPixel();
   --verde:#17795E;
   --ambar:#B87A17;
   --vermelho:#B23A2F;
-  --grad:linear-gradient(140deg,#2E7FC2 0%,#14507F 52%,#0B3253 100%);
+  --grad:
+    radial-gradient(118% 88% at 10% 106%, rgba(168,196,208,.55) 0%, rgba(168,196,208,0) 58%),
+    radial-gradient(92% 74% at 94% -10%, rgba(21,100,156,.5) 0%, rgba(21,100,156,0) 64%),
+    linear-gradient(212deg,#0A3A63 0%,#124E80 44%,#1C608F 100%);
+  --grad-barra:linear-gradient(140deg,#2E7FC2 0%,#14507F 52%,#0B3253 100%);
   --sombra:0 20px 50px -30px rgba(10,32,52,.5);
 }
 *{box-sizing:border-box}
