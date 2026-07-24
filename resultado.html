@@ -1,536 +1,421 @@
 <!DOCTYPE html>
 <html lang="pt-PT">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>O seu resultado — Equipa Soares</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>O seu diagnóstico · Equipa Soares</title>
 <meta name="robots" content="noindex">
-<!-- Google Fonts -->
+
+<script>
+/* ═════════════════════════════════════════════════════════════
+   A ORDEM AQUI É SAGRADA (ver ERRO Nº5)
+   1º  ler sessionStorage e consentimento
+   2º  sem dados → replace para index.html, SEM carregar pixel
+   3º  só com dados E consentimento → pixel + PageView (uma vez)
+   4º  NUNCA disparar 'Lead' nesta página
+   ═════════════════════════════════════════════════════════════ */
+var PIXEL_ID = 'PIXEL_ID_AQUI';                     // ← mesmo Pixel do index.html
+var PIXEL_ATIVO = PIXEL_ID.indexOf('AQUI') === -1;
+var CHAVE_UNICA = 'diag_equipasoares';
+var CHAVE_CONSENTIMENTO = CHAVE_UNICA + '_cookies';
+var CHAVE_PV = CHAVE_UNICA + '_pv';
+
+var DADOS = null;
+try {
+  var bruto = sessionStorage.getItem(CHAVE_UNICA);
+  if(bruto){
+    var tmp = JSON.parse(bruto);
+    if(tmp && tmp.A && tmp.D) DADOS = tmp;
+  }
+} catch(e){ DADOS = null; }
+
+if(!DADOS){
+  window.location.replace('index.html');   // e o pixel nunca chega a existir
+}
+
+function temConsentimento(){
+  try { return localStorage.getItem(CHAVE_CONSENTIMENTO) === 'aceite'; }
+  catch(e){ return false; }
+}
+function carregarPixel(){
+  if(!PIXEL_ATIVO || !DADOS || window.fbq) return;
+  !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+  n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+  n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+  t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+  document,'script','https://connect.facebook.net/en_US/fbevents.js');
+  fbq('init', PIXEL_ID);
+  var jaContou = false;
+  try { jaContou = sessionStorage.getItem(CHAVE_PV) === '1'; } catch(e){}
+  if(!jaContou){
+    fbq('track','PageView');                 // alimenta a conversão personalizada por URL
+    try { sessionStorage.setItem(CHAVE_PV,'1'); } catch(e){}
+  }
+}
+if(DADOS && temConsentimento()) carregarPixel();
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<!-- ══════════════ META PIXEL ══════════════ -->
-<script>
-!function(f,b,e,v,n,t,s)
-{if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-n.queue=[];t=b.createElement(e);t.async=!0;
-t.src=v;s=b.getElementsByTagName(e)[0];
-s.parentNode.insertBefore(t,s)}(window, document,'script',
-'https://connect.facebook.net/en_US/fbevents.js');
-fbq('init', '1025899160413527');
-fbq('track', 'PageView');
-// Função Lead preparada para ativação futura
-function trackLead(scoreViabilidade) {
-  try {
-    fbq('track', 'Lead', {
-      content_name: 'Simulador Troca de Casa',
-      content_category: 'Imobiliário',
-      value: scoreViabilidade,
-      currency: 'EUR'
-    });
-  } catch (e) {}
-}
-</script>
-<noscript><img height="1" width="1" style="display:none"
-src="https://www.facebook.com/tr?id=1025899160413527&ev=PageView&noscript=1"
-/></noscript>
-<!-- ════════════ FIM META PIXEL ════════════ -->
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 <style>
 :root{
-  --azul:#2E6FAE;
-  --azul-claro:#5B8FC0;
+  --principal:#0E3B63;
+  --principal-esc:#08243D;
+  --destaque:#2E7FC2;
+  --azul-claro:#A9CDEA;
+  --fundo:#F2F7FB;
   --branco:#FFFFFF;
-  --cinza-claro:#F5F7FA;
-  --cinza-medio:#D9E1EA;
-  --texto:#1E293B;
-  --verde:#1E8E5A;
-  --ambar:#B07A1E;
-  --raio:12px;
-  --sombra:0 8px 30px rgba(30,41,59,.08);
-  --transicao:.25s ease;
+  --texto:#0F1E2B;
+  --suave:#4C6478;
+  --linha:#DBE7F1;
+  --verde:#17795E;
+  --ambar:#B87A17;
+  --vermelho:#B23A2F;
+  --grad:linear-gradient(138deg,#2E7FC2 0%,#14507F 52%,#0B3253 100%);
+  --sombra:0 18px 44px -26px rgba(8,36,61,.45);
 }
-*{margin:0;padding:0;box-sizing:border-box;}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
 body{
-  font-family:'Inter',sans-serif;
-  color:var(--texto);
-  background:var(--cinza-claro);
-  line-height:1.6;
-  -webkit-font-smoothing:antialiased;
+  background:var(--fundo);color:var(--texto);
+  font-family:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;
 }
-h1,h2,h3{font-family:'Playfair Display',serif;font-weight:600;line-height:1.25;}
-a{color:var(--azul);}
-.contentor{max-width:860px;margin:0 auto;padding:0 1.25rem;}
-/* ───────── CABEÇALHO ───────── */
-.cabecalho{
-  background:linear-gradient(160deg, #1C3A58 0%, var(--azul) 100%);
-  color:var(--branco);
-  text-align:center;
-  padding:3.2rem 1.5rem 7.5rem;
+:focus-visible{outline:3px solid var(--destaque);outline-offset:2px;border-radius:6px}
+.envolve{max-width:720px;margin:0 auto;padding:0 16px 60px}
+
+/* ── cabeçalho / veredicto ── */
+.cabecalho{background:var(--grad);color:#fff;padding:34px 0 40px}
+.cabecalho .envolve{padding-bottom:0}
+.eyebrow{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#B9D6EE;font-weight:600;margin:0 0 14px}
+.veredicto-rot{font-size:13.5px;color:#C7DEF1;margin:0 0 4px}
+.veredicto{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:clamp(32px,9vw,54px);line-height:1.05;letter-spacing:-.03em;margin:0;
 }
-.cabecalho .marca{
-  font-family:'Playfair Display',serif;
-  font-size:1.2rem;font-weight:700;letter-spacing:.04em;
-  margin-bottom:2rem;
+.veredicto-nota{margin:12px 0 0;font-size:15.5px;color:#DCEAF5;max-width:46ch}
+.aviso{margin:20px 0 0;font-size:12px;color:#A9C8E2;border-top:1px solid rgba(255,255,255,.16);padding-top:14px}
+
+/* ── cartões ── */
+.cartao{
+  background:var(--branco);border:1px solid var(--linha);border-radius:20px;
+  padding:24px 22px;margin-top:20px;box-shadow:var(--sombra);
 }
-.cabecalho .marca span{color:#BFD4E8;}
-.cabecalho .eyebrow{
-  display:inline-block;
-  font-size:.72rem;font-weight:600;letter-spacing:.22em;text-transform:uppercase;
-  color:#BFD4E8;
-  border:1px solid rgba(255,255,255,.3);
-  padding:.4rem 1rem;border-radius:999px;
-  margin-bottom:1.1rem;
+.cartao:first-of-type{margin-top:-22px}
+h2.sec{
+  font-family:'Fraunces',Georgia,serif;font-weight:600;
+  font-size:clamp(19px,4.6vw,24px);letter-spacing:-.02em;line-height:1.2;margin:0 0 4px;
 }
-.cabecalho h1{font-size:clamp(1.7rem,4.5vw,2.5rem);margin-bottom:.5rem;}
-.cabecalho p{color:rgba(255,255,255,.85);max-width:560px;margin:0 auto;font-size:.98rem;}
-.cabecalho .saudacao{font-weight:600;color:var(--branco);}
-/* ───────── CARTÃO DE SCORE ───────── */
-.cartao-score{
-  background:var(--branco);
-  border:1px solid var(--cinza-medio);
-  border-radius:18px;
-  box-shadow:var(--sombra);
-  padding:2.4rem 1.8rem;
-  margin-top:-5.2rem;
-  text-align:center;
-}
-@media(min-width:600px){.cartao-score{padding:2.8rem 3rem;}}
-.score-rotulo{
-  font-size:.78rem;font-weight:600;letter-spacing:.18em;text-transform:uppercase;
-  color:#7A8AA0;margin-bottom:.8rem;
-}
-.score-valor{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(3.2rem,9vw,4.4rem);
-  font-weight:700;color:var(--texto);
-  line-height:1;
-}
-.score-valor small{font-size:.4em;color:#9AA8BC;font-weight:500;}
-.badge{
-  display:inline-block;
-  font-size:.82rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  padding:.45rem 1.4rem;border-radius:999px;
-  margin-top:1rem;
-}
-.badge.excelente{background:#E7F5EE;color:var(--verde);border:1px solid #BCE3CF;}
-.badge.bom{background:#EBF3FA;color:var(--azul);border:1px solid #C8DCEE;}
-.badge.moderado{background:#FAF3E5;color:var(--ambar);border:1px solid #EDDCB8;}
-/* barra de score animada */
-.score-barra-wrap{margin-top:1.8rem;}
-.score-barra{
-  height:10px;background:var(--cinza-medio);
-  border-radius:999px;overflow:hidden;
-}
-.score-barra-preench{
-  height:100%;width:0;
-  background:linear-gradient(90deg,var(--azul),var(--azul-claro));
-  border-radius:999px;
-  transition:width 1.2s cubic-bezier(.22,.9,.35,1);
-}
-.score-barra-legenda{
-  display:flex;justify-content:space-between;
-  font-size:.72rem;color:#9AA8BC;margin-top:.4rem;
-}
-.score-descricao{
-  margin-top:1.5rem;font-size:.95rem;color:#52617A;
-  max-width:560px;margin-left:auto;margin-right:auto;
-}
-/* ───────── CARTÕES PRAZO / MOTIVO ───────── */
-.grelha-info{
-  display:grid;grid-template-columns:1fr;gap:1rem;
-  margin-top:1.4rem;
-}
-@media(min-width:560px){.grelha-info{grid-template-columns:1fr 1fr;}}
-.cartao-info{
-  background:var(--branco);
-  border:1px solid var(--cinza-medio);
-  border-radius:var(--raio);
-  padding:1.4rem 1.5rem;
-  box-shadow:var(--sombra);
-  display:flex;align-items:flex-start;gap:1rem;
-}
-.cartao-info .icone{
-  flex-shrink:0;width:42px;height:42px;
+.sec-sub{margin:0 0 20px;font-size:13.6px;color:var(--suave)}
+
+/* ── eixos ── */
+.eixo{margin-bottom:20px}
+.eixo:last-child{margin-bottom:0}
+.eixo-topo{display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:7px}
+.eixo-nome{font-size:14.6px;font-weight:600}
+.eixo-val{font-family:'Fraunces',Georgia,serif;font-size:19px;font-weight:600;font-variant-numeric:tabular-nums}
+.trilho{height:9px;background:#EAF1F7;border-radius:99px;overflow:hidden}
+.trilho i{display:block;height:100%;width:0;border-radius:99px;transition:width 1.1s cubic-bezier(.22,.8,.3,1)}
+.eixo-leg{margin:7px 0 0;font-size:12.6px;color:var(--suave)}
+.bom{background:var(--verde)} .medio{background:var(--ambar)} .mau{background:var(--vermelho)}
+.txt-bom{color:var(--verde)} .txt-medio{color:var(--ambar)} .txt-mau{color:var(--vermelho)}
+
+/* ── checklist ── */
+.doc{display:flex;gap:12px;padding:13px 0;border-bottom:1px solid var(--linha)}
+.doc:last-child{border-bottom:0;padding-bottom:0}
+.marca{
+  flex:0 0 auto;width:23px;height:23px;border-radius:50%;
   display:flex;align-items:center;justify-content:center;
-  background:#EBF3FA;border-radius:10px;
+  font-size:13px;font-weight:700;color:#fff;margin-top:1px;
 }
-.cartao-info h3{font-family:'Inter',sans-serif;font-size:.76rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:#7A8AA0;margin-bottom:.25rem;}
-.cartao-info p{font-size:1rem;font-weight:600;color:var(--texto);}
-/* ───────── CITAÇÃO ───────── */
-.citacao{
-  margin:2.6rem auto 0;
-  max-width:620px;
-  text-align:center;
-  padding:0 .5rem;
+.marca.sim{background:var(--verde)} .marca.nao{background:var(--vermelho)}
+.doc-nome{font-size:14.6px;font-weight:600;margin:0}
+.doc-onde{margin:2px 0 0;font-size:12.7px;color:var(--suave)}
+.etiqueta{
+  display:inline-block;margin-left:8px;vertical-align:2px;
+  background:#FBECEA;color:var(--vermelho);border-radius:6px;
+  font-size:10px;letter-spacing:.08em;font-weight:700;padding:3px 7px;text-transform:uppercase;
 }
-.citacao blockquote{
-  font-family:'Playfair Display',serif;
-  font-size:clamp(1.15rem,2.8vw,1.4rem);
-  font-style:italic;
-  color:#2C3E55;
-  line-height:1.5;
+
+/* ── travões ── */
+.travao{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--linha)}
+.travao:last-child{border-bottom:0;padding-bottom:0}
+.num{
+  flex:0 0 auto;width:27px;height:27px;border-radius:9px;background:#FBECEA;color:var(--vermelho);
+  display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;
 }
-.citacao cite{
-  display:block;margin-top:.9rem;
-  font-family:'Inter',sans-serif;
-  font-style:normal;font-size:.82rem;font-weight:600;
-  letter-spacing:.1em;text-transform:uppercase;color:var(--azul);
+.travao h3{margin:0 0 3px;font-size:14.8px;font-weight:600}
+.travao p{margin:0;font-size:13.4px;color:var(--suave);line-height:1.5}
+.tudo-bem{background:#EDF7F3;border:1px solid #BFE3D6;border-radius:14px;padding:16px;color:#12604A;font-size:14px;margin:0}
+
+/* ── próximos passos ── */
+.passo-l{display:flex;gap:14px;padding:14px 0;border-bottom:1px solid var(--linha)}
+.passo-l:last-child{border-bottom:0;padding-bottom:0}
+.passo-n{
+  flex:0 0 auto;width:27px;height:27px;border-radius:9px;
+  background:#EAF3FB;color:var(--principal);
+  display:flex;align-items:center;justify-content:center;font-size:13.5px;font-weight:700;
 }
-/* ───────── SECÇÕES ───────── */
-.seccao{padding:3.4rem 0 0;}
-.seccao-titulo{text-align:center;margin-bottom:2rem;}
-.seccao-titulo h2{font-size:clamp(1.5rem,3.8vw,2rem);}
-.seccao-titulo p{color:#52617A;font-size:.95rem;margin-top:.4rem;}
-/* ───────── TIMELINE ───────── */
-.timeline{position:relative;max-width:620px;margin:0 auto;}
-.timeline::before{
-  content:'';position:absolute;left:21px;top:8px;bottom:8px;
-  width:2px;background:var(--cinza-medio);
+.passo-l h3{margin:0 0 3px;font-size:14.8px;font-weight:600}
+.passo-l p{margin:0;font-size:13.4px;color:var(--suave);line-height:1.5}
+
+/* ── CTA ── */
+.cta{background:var(--grad);color:#fff;border-radius:22px;padding:28px 22px;margin-top:22px;box-shadow:var(--sombra)}
+.cta h2{font-family:'Fraunces',Georgia,serif;font-weight:600;font-size:clamp(21px,5.2vw,27px);line-height:1.2;letter-spacing:-.02em;margin:0 0 8px}
+.cta p{margin:0 0 20px;font-size:14.4px;color:#D6E7F4;max-width:44ch}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;padding:15px 20px;border-radius:999px;text-decoration:none;
+  font-size:15.4px;font-weight:600;margin-bottom:10px;transition:transform .18s ease;
 }
-.etapa{
-  position:relative;
-  display:flex;gap:1.3rem;
-  padding-bottom:1.8rem;
+.btn:hover{transform:translateY(-1px)}
+.btn-wa{background:#fff;color:var(--principal)}
+.btn-wa2{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
+.btn-tel{background:transparent;color:#DCEAF5;border:1.5px solid rgba(255,255,255,.35)}
+.insta{display:block;text-align:center;margin-top:14px;color:#B9D6EE;font-size:13px;text-decoration:none}
+.insta:hover{color:#fff}
+.resumo{
+  margin-top:18px;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);
+  font-size:12.6px;color:#B9D6EE;line-height:1.6;
 }
-.etapa:last-child{padding-bottom:0;}
-.etapa-num{
-  position:relative;z-index:1;
-  flex-shrink:0;width:44px;height:44px;
-  display:flex;align-items:center;justify-content:center;
-  background:var(--branco);
-  border:2px solid var(--azul);
-  border-radius:50%;
-  font-family:'Playfair Display',serif;
-  font-weight:700;color:var(--azul);font-size:1.05rem;
+.rodape{text-align:center;font-size:12.2px;color:var(--suave);margin:26px 0 0}
+.rodape a{color:var(--principal)}
+
+/* ── banner cookies ── */
+.cookies{
+  position:fixed;left:12px;right:12px;bottom:12px;z-index:60;
+  background:var(--principal-esc);color:#E9F2F9;border-radius:16px;padding:16px 18px;
+  display:none;gap:14px;flex-direction:column;box-shadow:0 20px 50px -20px rgba(0,0,0,.6);
 }
-.etapa-corpo{
-  background:var(--branco);
-  border:1px solid var(--cinza-medio);
-  border-radius:var(--raio);
-  padding:1.1rem 1.4rem;
-  flex:1;
-  box-shadow:var(--sombra);
+.cookies.mostrar{display:flex}
+.cookies p{margin:0;font-size:13px;line-height:1.5;color:#CBDDEC}
+.cookies-btns{display:flex;gap:9px}
+.cookies button{flex:1;border:0;border-radius:999px;padding:11px 16px;font-size:14px;font-weight:600;cursor:pointer}
+#aceitar{background:#fff;color:var(--principal)}
+#recusar{background:transparent;color:#CBDDEC;border:1.5px solid rgba(203,221,236,.45)}
+@media (min-width:760px){
+  .cookies{flex-direction:row;align-items:center;left:auto;right:20px;bottom:20px;max-width:620px}
+  .cookies-btns{flex:0 0 auto}
+  .cookies button{padding:11px 22px}
+  .btn{width:auto;display:inline-flex;margin-right:10px}
 }
-.etapa-corpo h3{font-size:1.05rem;margin-bottom:.25rem;}
-.etapa-corpo p{font-size:.88rem;color:#52617A;}
-/* ───────── CARDS CONSIDERAR ───────── */
-.grelha-considerar{
-  display:grid;grid-template-columns:1fr;gap:1rem;
-}
-@media(min-width:680px){.grelha-considerar{grid-template-columns:repeat(3,1fr);}}
-.cartao-considerar{
-  background:var(--branco);
-  border:1px solid var(--cinza-medio);
-  border-radius:var(--raio);
-  padding:1.6rem 1.5rem;
-  box-shadow:var(--sombra);
-}
-.cartao-considerar .numero{
-  font-family:'Playfair Display',serif;
-  font-size:.95rem;font-weight:700;color:var(--azul-claro);
-  letter-spacing:.08em;
-  margin-bottom:.7rem;
-}
-.cartao-considerar h3{font-size:1.06rem;margin-bottom:.5rem;}
-.cartao-considerar p{font-size:.87rem;color:#52617A;}
-/* ───────── CONTACTOS ───────── */
-.seccao-contactos{
-  margin-top:3.6rem;
-  background:var(--branco);
-  border-top:1px solid var(--cinza-medio);
-  padding:3.4rem 0 3.8rem;
-}
-.grelha-consultores{
-  display:grid;grid-template-columns:1fr;gap:1rem;
-  max-width:620px;margin:0 auto;
-}
-@media(min-width:560px){.grelha-consultores{grid-template-columns:1fr 1fr;}}
-.cartao-consultor{
-  border:1.5px solid var(--cinza-medio);
-  border-radius:14px;
-  padding:1.7rem 1.5rem;
-  text-align:center;
-  transition:all var(--transicao);
-  background:var(--branco);
-}
-.cartao-consultor:hover{border-color:var(--azul-claro);box-shadow:var(--sombra);transform:translateY(-2px);}
-.avatar{
-  width:58px;height:58px;border-radius:50%;
-  margin:0 auto .9rem;
-  display:flex;align-items:center;justify-content:center;
-  background:linear-gradient(150deg,var(--azul),var(--azul-claro));
-  color:var(--branco);
-  font-family:'Playfair Display',serif;
-  font-size:1.3rem;font-weight:700;
-}
-.cartao-consultor h3{font-size:1.12rem;margin-bottom:.15rem;}
-.cartao-consultor .funcao{font-size:.8rem;color:#7A8AA0;margin-bottom:1.1rem;}
-.btn-whatsapp{
-  display:inline-flex;align-items:center;justify-content:center;gap:.5rem;
-  width:100%;
-  background:var(--azul);color:var(--branco);
-  font-size:.9rem;font-weight:600;
-  padding:.85rem 1rem;
-  border:none;border-radius:999px;
-  text-decoration:none;
-  transition:background var(--transicao);
-}
-.btn-whatsapp:hover{background:var(--azul-claro);}
-.linha-instagram{
-  text-align:center;margin-top:1.8rem;
-}
-.linha-instagram a{
-  display:inline-flex;align-items:center;gap:.5rem;
-  font-size:.9rem;font-weight:600;color:var(--azul);
-  text-decoration:none;
-  border:1.5px solid var(--cinza-medio);
-  padding:.7rem 1.5rem;border-radius:999px;
-  transition:all var(--transicao);
-}
-.linha-instagram a:hover{border-color:var(--azul);background:#EBF3FA;}
-/* ───────── RODAPÉ ───────── */
-.rodape{
-  background:var(--texto);
-  color:rgba(255,255,255,.75);
-  text-align:center;
-  padding:2.2rem 1.5rem;
-  font-size:.82rem;
-}
-.rodape .marca-rodape{
-  font-family:'Playfair Display',serif;
-  font-size:1.05rem;color:var(--branco);
-  margin-bottom:.4rem;
-}
-.rodape a{color:rgba(255,255,255,.85);}
-@media (prefers-reduced-motion: reduce){
-  *{animation:none!important;transition:none!important;}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
 }
 </style>
 </head>
 <body>
-<!-- CABEÇALHO -->
+
 <header class="cabecalho">
-  <div class="marca">Equipa <span>Soares</span></div>
-  <span class="eyebrow">Resultado da Simulação</span>
-  <h1>A sua análise de viabilidade</h1>
-  <p><span class="saudacao" id="saudacaoNome"></span>Com base nas suas respostas, preparámos uma leitura estruturada da sua situação para a troca de casa.</p>
+  <div class="envolve">
+    <p class="eyebrow" id="topo-marca">Equipa Soares · Diagnóstico de venda</p>
+    <p class="veredicto-rot">Tempo estimado até vender</p>
+    <h1 class="veredicto" id="tempo">—</h1>
+    <p class="veredicto-nota" id="nota"></p>
+    <p class="aviso">Estimativa indicativa, calculada a partir das suas respostas. Não substitui uma avaliação presencial do imóvel.</p>
+  </div>
 </header>
-<main class="contentor">
-  <!-- SCORE -->
-  <section class="cartao-score">
-    <div class="score-rotulo">Score de Viabilidade</div>
-    <div class="score-valor"><span id="scoreNumero">0</span><small> / 10</small></div>
-    <div><span class="badge" id="scoreBadge">—</span></div>
-    <div class="score-barra-wrap">
-      <div class="score-barra"><div class="score-barra-preench" id="scoreBarra"></div></div>
-      <div class="score-barra-legenda"><span>0</span><span>5</span><span>10</span></div>
+
+<div class="envolve">
+
+  <!-- 1 · TRÊS EIXOS -->
+  <section class="cartao">
+    <h2 class="sec">Onde está a sua casa hoje</h2>
+    <p class="sec-sub">Três eixos independentes. Um valor baixo não é uma nota — é um ponto a resolver.</p>
+
+    <div class="eixo">
+      <div class="eixo-topo"><span class="eixo-nome">Documentação</span><span class="eixo-val" id="v-doc">—</span></div>
+      <div class="trilho"><i id="b-doc"></i></div>
+      <p class="eixo-leg">Mede se tem em mãos o que é preciso para anunciar e para marcar escritura.</p>
     </div>
-    <p class="score-descricao" id="scoreDescricao"></p>
-  </section>
-  <!-- PRAZO E MOTIVO -->
-  <div class="grelha-info">
-    <div class="cartao-info">
-      <div class="icone">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E6FAE" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
-      </div>
-      <div>
-        <h3>Prazo pretendido</h3>
-        <p id="infoPrazo">—</p>
-      </div>
+
+    <div class="eixo">
+      <div class="eixo-topo"><span class="eixo-nome">Preço vs. mercado</span><span class="eixo-val" id="v-preco">—</span></div>
+      <div class="trilho"><i id="b-preco"></i></div>
+      <p class="eixo-leg">Mede a solidez da origem do seu valor — não o valor em si.</p>
     </div>
-    <div class="cartao-info">
-      <div class="icone">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#2E6FAE" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/></svg>
-      </div>
-      <div>
-        <h3>Motivo da troca</h3>
-        <p id="infoMotivo">—</p>
-      </div>
-    </div>
-  </div>
-  <!-- CITAÇÃO -->
-  <div class="citacao">
-    <blockquote>“Uma troca de casa bem-sucedida não depende de sorte — depende de uma estratégia clara, definida antes do primeiro passo.”</blockquote>
-    <cite>Equipa Soares · Consultoria Imobiliária</cite>
-  </div>
-  <!-- TIMELINE -->
-  <section class="seccao">
-    <div class="seccao-titulo">
-      <h2>O processo de troca de casa</h2>
-      <p>Três fases estruturadas, acompanhadas do início ao fim.</p>
-    </div>
-    <div class="timeline">
-      <div class="etapa">
-        <div class="etapa-num">1</div>
-        <div class="etapa-corpo">
-          <h3>Avaliação do imóvel atual</h3>
-          <p>Análise rigorosa de mercado para conhecer o valor real do seu imóvel e o potencial de venda na sua zona.</p>
-        </div>
-      </div>
-      <div class="etapa">
-        <div class="etapa-num">2</div>
-        <div class="etapa-corpo">
-          <h3>Definição da estratégia</h3>
-          <p>Vender primeiro ou comprar primeiro? Definimos o caminho mais seguro para a sua situação financeira e prazo.</p>
-        </div>
-      </div>
-      <div class="etapa">
-        <div class="etapa-num">3</div>
-        <div class="etapa-corpo">
-          <h3>Escritura e mudança</h3>
-          <p>Coordenação de prazos, documentação e financiamento para uma transição sem sobressaltos entre as duas casas.</p>
-        </div>
-      </div>
+
+    <div class="eixo">
+      <div class="eixo-topo"><span class="eixo-nome">Estado e prontidão</span><span class="eixo-val" id="v-estado">—</span></div>
+      <div class="trilho"><i id="b-estado"></i></div>
+      <p class="eixo-leg">Mede a facilidade de mostrar e vender o imóvel tal como está hoje.</p>
     </div>
   </section>
-  <!-- CONSIDERAR -->
-  <section class="seccao">
-    <div class="seccao-titulo">
-      <h2>O que deve considerar antes de avançar</h2>
-    </div>
-    <div class="grelha-considerar">
-      <div class="cartao-considerar">
-        <div class="numero">01</div>
-        <h3>Conheça o valor real do seu imóvel</h3>
-        <p>O valor de mercado raramente coincide com a expectativa inicial. Uma avaliação profissional evita imóveis parados no mercado ou vendas abaixo do justo valor.</p>
-      </div>
-      <div class="cartao-considerar">
-        <div class="numero">02</div>
-        <h3>Calcule todos os encargos envolvidos</h3>
-        <p>IMT, imposto de selo, registos e comissões podem representar uma parcela significativa do orçamento. Devem estar contemplados desde o início do planeamento.</p>
-      </div>
-      <div class="cartao-considerar">
-        <div class="numero">03</div>
-        <h3>Crédito habitação</h3>
-        <p id="textoCredito">—</p>
-      </div>
-    </div>
+
+  <!-- 2 · CHECKLIST -->
+  <section class="cartao">
+    <h2 class="sec">Documentos</h2>
+    <p class="sec-sub" id="doc-sub">—</p>
+    <div id="lista-docs"></div>
   </section>
-</main>
-<!-- CONTACTOS -->
-<section class="seccao-contactos">
-  <div class="contentor">
-    <div class="seccao-titulo">
-      <h2>Fale com um consultor</h2>
-      <p>Escolha com quem prefere falar. Receberá orientação personalizada sobre os próximos passos, sem qualquer compromisso.</p>
-    </div>
-    <div class="grelha-consultores">
-      <div class="cartao-consultor">
-        <div class="avatar">AS</div>
-        <h3>Adélia Soares</h3>
-        <div class="funcao">Consultora Imobiliária</div>
-        <a class="btn-whatsapp" id="whatsAdelia" href="#" target="_blank" rel="noopener">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8.9-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.5L9.6 8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.5 1.1 2.6c.1.2 1.9 2.9 4.6 4.1 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
-          Falar no WhatsApp
-        </a>
-      </div>
-      <div class="cartao-consultor">
-        <div class="avatar">RS</div>
-        <h3>Ricardo Soares</h3>
-        <div class="funcao">Consultor Imobiliário</div>
-        <a class="btn-whatsapp" id="whatsRicardo" href="#" target="_blank" rel="noopener">
-          <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8.9-.1.2-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3.1-.2 0-.3 0-.5L9.6 8c-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.5.1-.7.3-.2.3-.9.9-.9 2.1s.9 2.5 1.1 2.6c.1.2 1.9 2.9 4.6 4.1 1.7.7 2.4.8 3.2.7.5-.1 1.5-.6 1.7-1.2.2-.6.2-1.1.2-1.2-.1-.1-.3-.2-.5-.3z"/></svg>
-          Falar no WhatsApp
-        </a>
-      </div>
-    </div>
-    <div class="linha-instagram">
-      <a href="https://www.instagram.com/equipasoares.pt/" target="_blank" rel="noopener">
-        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.2" cy="6.8" r=".8" fill="currentColor" stroke="none"/></svg>
-        Seguir a Equipa Soares no Instagram
-      </a>
-    </div>
+
+  <!-- 3 · TRAVÕES -->
+  <section class="cartao">
+    <h2 class="sec">O que está a travar a sua venda</h2>
+    <p class="sec-sub">Por ordem de gravidade, a partir das suas respostas.</p>
+    <div id="lista-travoes"></div>
+  </section>
+
+  <!-- 4 · PRÓXIMOS PASSOS -->
+  <section class="cartao">
+    <h2 class="sec">O que fazer a seguir</h2>
+    <p class="sec-sub">Pela ordem que faz sentido no seu caso concreto.</p>
+    <div id="lista-passos"></div>
+  </section>
+
+  <!-- 5 · CTA -->
+  <section class="cta">
+    <h2 id="cta-titulo">Quer saber quanto vale MESMO a sua casa?</h2>
+    <p id="cta-texto">Uma avaliação presencial cruza o seu imóvel com as vendas reais fechadas na sua zona — não com os preços pedidos nos anúncios.</p>
+    <a class="btn btn-wa" id="wa1" href="#" target="_blank" rel="noopener">Falar com Ricardo Soares</a>
+    <a class="btn btn-wa2" id="wa2" href="#" target="_blank" rel="noopener">Falar com Adélia</a>
+    <a class="btn btn-tel" id="tel" href="tel:+351918360813">Ligar agora</a>
+    <a class="insta" href="https://www.instagram.com/equipasoares.pt/" target="_blank" rel="noopener">@equipasoares.pt</a>
+    <p class="resumo" id="resumo"></p>
+  </section>
+
+  <p class="rodape"><a href="index.html">Fazer novo diagnóstico</a></p>
+</div>
+
+<div class="cookies" id="cookies" role="dialog" aria-live="polite" aria-label="Consentimento de cookies">
+  <p>Usamos cookies de publicidade para medir os resultados das nossas campanhas. Pode recusar — o diagnóstico funciona na mesma.</p>
+  <div class="cookies-btns">
+    <button type="button" id="recusar">Recusar</button>
+    <button type="button" id="aceitar">Aceitar</button>
   </div>
-</section>
-<!-- RODAPÉ -->
-<footer class="rodape">
-  <div class="marca-rodape">Equipa Soares</div>
-  <div>Consultoria Imobiliária · Portugal</div>
-</footer>
+</div>
+
 <script>
 (function(){
-  'use strict';
-  /* ════════ CONFIGURAÇÃO ════════ */
-  var CHAVE_STORAGE = 'sim_equipa_soares';
-  var MENSAGEM_WHATSAPP = 'Olá, concluí o simulador de troca de casa e gostaria de receber uma orientação sobre os próximos passos.';
-  var TEL_ADELIA = '351967165989';
-  var TEL_RICARDO = '351918360813';
-  /* ════════ LER DADOS ════════ */
-  var dados = null;
-  try {
-    var bruto = sessionStorage.getItem(CHAVE_STORAGE);
-    if (bruto) dados = JSON.parse(bruto);
-  } catch(e){}
-  if (!dados || typeof dados.score_viabilidade === 'undefined'){
-    window.location.replace('index.html');
-    return;
-  }
-  var score = Math.max(0, Math.min(10, parseFloat(dados.score_viabilidade) || 0));
-  /* ════════ SAUDAÇÃO ════════ */
-  var saudacao = document.getElementById('saudacaoNome');
-  if (dados.nome){
-    var primeiroNome = dados.nome.split(/\s+/)[0];
-    saudacao.textContent = primeiroNome + ', ';
-  }
-  /* ════════ BADGE E DESCRIÇÃO ════════ */
-  var badge = document.getElementById('scoreBadge');
-  var descricao = document.getElementById('scoreDescricao');
-  if (score >= 8){
-    badge.textContent = 'Excelente';
-    badge.classList.add('excelente');
-    descricao.textContent = 'A sua situação apresenta condições muito favoráveis para avançar com a troca de casa. Com a estratégia certa, este é um excelente momento para concretizar o seu projeto.';
-  } else if (score >= 6){
-    badge.textContent = 'Bom';
-    badge.classList.add('bom');
-    descricao.textContent = 'A sua situação apresenta boas condições para a troca de casa. Com um planeamento adequado, o seu projeto tem uma base sólida para avançar com segurança.';
-  } else {
-    badge.textContent = 'Moderado';
-    badge.classList.add('moderado');
-    descricao.textContent = 'A sua situação requer um planeamento mais cuidadoso, mas isso não significa que o projeto não seja viável. Com a orientação certa, é possível estruturar um caminho seguro para a sua troca de casa.';
-  }
-  /* ════════ ANIMAÇÃO DO SCORE ════════ */
-  var scoreNumero = document.getElementById('scoreNumero');
-  var scoreBarra = document.getElementById('scoreBarra');
-  function formatarScore(v){
-    return (Math.round(v * 10) / 10).toString().replace('.', ',');
-  }
-  var reduzMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduzMotion){
-    scoreNumero.textContent = formatarScore(score);
-    scoreBarra.style.transition = 'none';
-    scoreBarra.style.width = (score * 10) + '%';
-  } else {
-    var inicio = null;
-    var duracao = 1200;
-    function animar(ts){
-      if (!inicio) inicio = ts;
-      var prog = Math.min((ts - inicio) / duracao, 1);
-      var suave = 1 - Math.pow(1 - prog, 3);
-      scoreNumero.textContent = formatarScore(score * suave);
-      if (prog < 1) requestAnimationFrame(animar);
-      else scoreNumero.textContent = formatarScore(score);
-    }
-    requestAnimationFrame(animar);
-    setTimeout(function(){
-      scoreBarra.style.width = (score * 10) + '%';
-    }, 150);
-  }
-  /* ════════ CARTÕES PRAZO / MOTIVO ════════ */
-  document.getElementById('infoPrazo').textContent = dados.prazo || '—';
-  document.getElementById('infoMotivo').textContent = dados.motivo || '—';
-  /* ════════ TEXTO CONDICIONAL DE CRÉDITO ════════ */
-  var textoCredito = document.getElementById('textoCredito');
-  if (dados.credito_ativo === 'Sim'){
-    textoCredito.textContent = 'Como tem crédito habitação ativo, é fundamental analisar as condições de transferência, amortização ou novo financiamento antes de avançar. A sequência certa entre venda e compra pode fazer toda a diferença no resultado final.';
-  } else {
-    textoCredito.textContent = 'Como o seu imóvel está pago, parte numa posição financeira privilegiada. O capital libertado pela venda dá-lhe maior poder negocial e flexibilidade na escolha da próxima casa.';
-  }
-  /* ════════ WHATSAPP ════════ */
-  var msg = encodeURIComponent(MENSAGEM_WHATSAPP);
-  document.getElementById('whatsAdelia').href = 'https://wa.me/' + TEL_ADELIA + '?text=' + msg;
-  document.getElementById('whatsRicardo').href = 'https://wa.me/' + TEL_RICARDO + '?text=' + msg;
+'use strict';
+if(!DADOS) return;
+
+var A = DADOS.A, D = DADOS.D;
+var primeiro = (A.nome||'').trim().split(/\s+/)[0] || '';
+
+/* ── banner de cookies (mesma escolha nas duas páginas) ── */
+var banner = document.getElementById('cookies');
+try { if(!localStorage.getItem(CHAVE_CONSENTIMENTO)) banner.classList.add('mostrar'); }
+catch(e){ banner.classList.add('mostrar'); }
+document.getElementById('aceitar').addEventListener('click', function(){
+  try { localStorage.setItem(CHAVE_CONSENTIMENTO,'aceite'); } catch(e){}
+  banner.classList.remove('mostrar');
+  carregarPixel();
+});
+document.getElementById('recusar').addEventListener('click', function(){
+  try { localStorage.setItem(CHAVE_CONSENTIMENTO,'recusado'); } catch(e){}
+  banner.classList.remove('mostrar');
+});
+
+/* ── 1 · cabeçalho ── */
+document.getElementById('topo-marca').textContent =
+  'O seu diagnóstico' + (primeiro ? ' · ' + primeiro : '');
+document.getElementById('tempo').textContent = D.tempo;
+document.getElementById('nota').textContent = D.nota;
+
+/* ── 2 · eixos ── */
+function classe(v){ return v>=70 ? 'bom' : (v>=45 ? 'medio' : 'mau'); }
+function classeTxt(v){ return v>=70 ? 'txt-bom' : (v>=45 ? 'txt-medio' : 'txt-mau'); }
+function pintar(idBarra, idValor, v){
+  var barra = document.getElementById(idBarra);
+  var valor = document.getElementById(idValor);
+  barra.className = classe(v);
+  valor.className = 'eixo-val ' + classeTxt(v);
+  valor.textContent = v + '%';
+  setTimeout(function(){ barra.style.width = v + '%'; }, 160);
+}
+pintar('b-doc','v-doc', D.doc);
+pintar('b-preco','v-preco', D.preco);
+pintar('b-estado','v-estado', D.estado);
+
+/* ── 3 · checklist de documentos ── */
+var ONDE = {
+  'Caderneta predial': 'Pede-se no Portal das Finanças, em minutos e sem custo.',
+  'Certidão permanente do registo': 'Pede-se no Predial Online ou na Conservatória do Registo Predial.',
+  'Licença de utilização': 'Pede-se na Câmara Municipal do concelho do imóvel (isenta em construções anteriores a 1951).',
+  'Certificado energético': 'Emitido por perito qualificado registado na ADENE. Conte com alguns dias.'
+};
+var ORDEM = ['Caderneta predial','Certidão permanente do registo','Licença de utilização','Certificado energético'];
+var tem = A.documentos || [];
+var listaDocs = document.getElementById('lista-docs');
+var html = '';
+ORDEM.forEach(function(nome){
+  var ok = tem.indexOf(nome) > -1;
+  var etiqueta = (!ok && nome === 'Certificado energético')
+    ? '<span class="etiqueta">Bloqueia o anúncio</span>' : '';
+  html += '<div class="doc">' +
+            '<span class="marca ' + (ok?'sim':'nao') + '" aria-hidden="true">' + (ok?'✓':'✕') + '</span>' +
+            '<div><p class="doc-nome">' + nome + etiqueta + '</p>' +
+            '<p class="doc-onde">' + (ok ? 'Já o tem em mãos.' : ONDE[nome]) + '</p></div>' +
+          '</div>';
+});
+listaDocs.innerHTML = html;
+document.getElementById('doc-sub').textContent =
+  D.faltam.length === 0
+    ? 'Tem tudo. É meio caminho andado.'
+    : (D.faltam.length === 1 ? 'Falta-lhe 1 documento.' : 'Faltam-lhe ' + D.faltam.length + ' documentos.');
+
+/* ── 4 · travões ── */
+var lt = document.getElementById('lista-travoes');
+if(D.travoes.length === 0){
+  lt.innerHTML = '<p class="tudo-bem">Não identificámos travões críticos. O caminho está desimpedido — falta executar bem.</p>';
+} else {
+  var h = '';
+  D.travoes.forEach(function(t, i){
+    h += '<div class="travao"><span class="num" aria-hidden="true">' + (i+1) + '</span>' +
+         '<div><h3>' + t.titulo + '</h3><p>' + t.texto + '</p></div></div>';
+  });
+  lt.innerHTML = h;
+}
+
+/* ── 5 · próximos passos (ordenados pelo caso concreto) ── */
+var passos = [];
+function add(t, p){ passos.push({t:t, p:p}); }
+
+if(D.faltam.indexOf('Certificado energético') > -1)
+  add('Peça já o certificado energético','É o único documento que impede legalmente o anúncio. Marque a visita do perito esta semana — o resto pode andar em paralelo.');
+if(A.acordo === 'Ainda não há acordo entre todos' || A.acordo === 'Não sei / ainda não falámos')
+  add('Feche o acordo entre os proprietários','Antes de mostrar a casa a quem quer que seja, ponha por escrito quem vende, por quanto e como se divide. Evita o negócio cair no fim.');
+if(D.preco < 55)
+  add('Peça uma avaliação profissional','O seu valor não está ancorado em dados de mercado. Uma avaliação gratuita mostra-lhe o intervalo real em que a sua casa vende.');
+if(A.ocupacao === 'Está arrendado a inquilinos')
+  add('Defina a estratégia com o inquilino','Decida se vende com contrato em vigor (menos compradores, preço mais baixo) ou se negoceia a saída. São dois caminhos diferentes.');
+if(A.encargos === 'Penhora ou processo judicial')
+  add('Trate do levantamento da penhora','Sem isso não há escritura. É o primeiro passo, antes de qualquer investimento em anúncios.');
+if(D.faltam.length > 0)
+  add('Reúna a documentação em falta','Falta' + (D.faltam.length>1?'m':'') + ': ' + D.faltam.join(', ') + '. Comece pelos gratuitos e online — caderneta e certidão saem no próprio dia.');
+if(A.tempoMercado === 'Mais de 6 meses' || A.tempoMercado === '3 a 6 meses')
+  add('Reposicione o anúncio','Um anúncio antigo precisa de mais do que baixar o preço: fotografia nova, texto novo e uma razão para o comprador voltar a olhar.');
+add('Prepare a casa para as visitas','Despersonalize, arrume e trate da luz. É o investimento mais barato com maior impacto no valor final.');
+
+var lp = document.getElementById('lista-passos');
+var hp = '';
+passos.slice(0,4).forEach(function(x, i){
+  hp += '<div class="passo-l"><span class="passo-n" aria-hidden="true">' + (i+1) + '</span>' +
+        '<div><h3>' + x.t + '</h3><p>' + x.p + '</p></div></div>';
+});
+lp.innerHTML = hp;
+
+/* ── 6 · CTA com contexto real ── */
+var tipologia = (A.tipologia && A.tipo !== 'Terreno') ? ' ' + A.tipologia : '';
+var contexto = (A.tipo||'imóvel') + tipologia + (A.localizacao ? ' em ' + A.localizacao : '');
+var msg = 'Olá' + (primeiro ? ', chamo-me ' + primeiro : '') + '. Fiz o diagnóstico de venda no vosso site: ' +
+          contexto + ', com tempo estimado de ' + D.tempo + '. Gostava de perceber os próximos passos.';
+var texto = encodeURIComponent(msg);
+document.getElementById('wa1').href = 'https://wa.me/351918360813?text=' + texto;
+document.getElementById('wa2').href = 'https://wa.me/351967165989?text=' + texto;
+
+if(A.avaliacao === 'Sim, quero marcar'){
+  document.getElementById('cta-titulo').textContent = 'Recebemos o seu pedido de avaliação';
+  document.getElementById('cta-texto').textContent =
+    'Entramos em contacto nas próximas 48 horas para marcar a visita. Se preferir acelerar, fale connosco agora mesmo.';
+}
+
+document.getElementById('resumo').textContent =
+  'Diagnóstico: ' + contexto + (A.area ? ' · ' + A.area + ' m²' : '') +
+  ' · Documentação ' + D.doc + '% · Preço ' + D.preco + '% · Estado ' + D.estado + '%.';
 })();
 </script>
 </body>
