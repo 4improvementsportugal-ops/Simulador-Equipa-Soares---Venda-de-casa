@@ -74,10 +74,9 @@ if(DADOS && temConsentimento()) carregarPixel();
   --ambar:#B87A17;
   --vermelho:#B23A2F;
   --grad:
-    radial-gradient(118% 88% at 10% 106%, rgba(168,196,208,.55) 0%, rgba(168,196,208,0) 58%),
-    radial-gradient(92% 74% at 94% -10%, rgba(21,100,156,.5) 0%, rgba(21,100,156,0) 64%),
+    radial-gradient(118% 88% at 10% 106%, rgba(168,196,208,.5) 0%, rgba(168,196,208,0) 58%),
+    radial-gradient(92% 74% at 94% -10%, rgba(21,100,156,.6) 0%, rgba(21,100,156,0) 64%),
     linear-gradient(212deg,#0A3A63 0%,#124E80 44%,#1C608F 100%);
-  --grad-barra:linear-gradient(140deg,#2E7FC2 0%,#14507F 52%,#0B3253 100%);
   --sombra:0 20px 50px -30px rgba(10,32,52,.5);
 }
 *{box-sizing:border-box}
@@ -93,32 +92,22 @@ em.serif{font-family:'Instrument Serif',Georgia,serif;font-style:italic;font-wei
 .envolve{max-width:700px;margin:0 auto;padding:0 16px}
 
 /* ── topo ── */
-.topo{
-  display:flex;align-items:center;justify-content:space-between;gap:14px;
-  padding:16px 20px;max-width:1200px;margin:0 auto;width:100%;background:var(--branco);
-}
-.perfil{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--tinta)}
-.perfil img{width:38px;height:38px;border-radius:50%;box-shadow:0 3px 10px -4px rgba(10,32,52,.5)}
-.perfil b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.2}
-.perfil .arroba{display:block;font-size:12px;color:var(--suave)}
-.etiq-topo{font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--suave);font-weight:600}
+.topo{display:flex;justify-content:center;padding:22px 20px 18px;background:var(--branco)}
+.perfil{display:flex;flex-direction:column;align-items:center;gap:9px;text-decoration:none;color:var(--tinta)}
+.perfil img{width:46px;height:46px;border-radius:50%;box-shadow:0 6px 18px -10px rgba(10,32,52,.6)}
+.perfil b{display:block;font-size:14.5px;font-weight:600;letter-spacing:-.01em;line-height:1.25;text-align:center}
+.perfil .arroba{display:block;font-size:12px;color:var(--suave);text-align:center}
 
 /* ── veredicto ── */
 .veredicto{background:var(--grad);color:#fff;padding:clamp(38px,8vw,64px) 0 clamp(46px,9vw,74px);text-align:center}
-.olho{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#B9D6EE;font-weight:600;margin:0 0 18px}
-.rot-tempo{margin:0 0 6px;font-size:13.6px;color:#C7DEF1}
-h1{
-  margin:0;font-size:clamp(34px,9vw,62px);font-weight:500;
-  line-height:1.04;letter-spacing:-.038em;text-wrap:balance;
-}
-.nota{margin:14px auto 0;font-size:clamp(17px,4.4vw,23px);color:#DCEAF5;max-width:24ch;line-height:1.35}
-.aviso{margin:24px auto 0;font-size:12px;color:#A9C8E2;max-width:44ch;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
+.olho{font-size:11.5px;letter-spacing:.16em;text-transform:uppercase;color:#BBD7EC;font-weight:600;margin:0 0 18px}
+.rot-tempo{margin:0 0 6px;font-size:13.6px;color:#CBE0F0}
+h1{margin:0;font-size:clamp(34px,9vw,62px);font-weight:500;line-height:1.04;letter-spacing:-.038em;text-wrap:balance}
+.nota{margin:14px auto 0;font-size:clamp(17px,4.4vw,23px);color:#DFEBF6;max-width:24ch;line-height:1.35}
+.aviso{margin:24px auto 0;font-size:12px;color:#AECBE3;max-width:44ch;border-top:1px solid rgba(255,255,255,.16);padding-top:16px}
 
 /* ── cartões ── */
-.cartao{
-  background:var(--branco);border:1px solid var(--linha);border-radius:22px;
-  padding:26px 22px;margin-top:18px;box-shadow:var(--sombra);
-}
+.cartao{background:var(--branco);border:1px solid var(--linha);border-radius:22px;padding:26px 22px;margin-top:18px;box-shadow:var(--sombra)}
 .cartao:first-of-type{margin-top:-26px}
 h2.sec{margin:0 0 6px;font-size:clamp(20px,4.8vw,26px);font-weight:500;letter-spacing:-.028em;line-height:1.15;text-align:center}
 .sec-sub{margin:0 auto 22px;font-size:13.6px;color:var(--suave);text-align:center;max-width:40ch}
@@ -138,17 +127,11 @@ h2.sec{margin:0 0 6px;font-size:clamp(20px,4.8vw,26px);font-weight:500;letter-sp
 /* ── checklist ── */
 .doc{display:flex;gap:12px;padding:14px 0;border-bottom:1px solid var(--linha)}
 .doc:last-child{border-bottom:0;padding-bottom:0}
-.sinal{
-  flex:0 0 auto;width:23px;height:23px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;margin-top:1px;
-}
+.sinal{flex:0 0 auto;width:23px;height:23px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#fff;margin-top:1px}
 .sinal.sim{background:var(--verde)} .sinal.nao{background:var(--vermelho)}
 .doc-nome{font-size:14.6px;font-weight:600;margin:0}
 .doc-onde{margin:3px 0 0;font-size:12.7px;color:var(--suave)}
-.etiqueta{
-  display:inline-block;margin-left:8px;vertical-align:2px;background:#FBECEA;color:var(--vermelho);
-  border-radius:6px;font-size:10px;letter-spacing:.08em;font-weight:700;padding:3px 7px;text-transform:uppercase;
-}
+.etiqueta{display:inline-block;margin-left:8px;vertical-align:2px;background:#FBECEA;color:var(--vermelho);border-radius:6px;font-size:10px;letter-spacing:.08em;font-weight:700;padding:3px 7px;text-transform:uppercase}
 
 /* ── travões e passos ── */
 .item{display:flex;gap:14px;padding:15px 0;border-bottom:1px solid var(--linha)}
@@ -163,27 +146,20 @@ h2.sec{margin:0 0 6px;font-size:clamp(20px,4.8vw,26px);font-weight:500;letter-sp
 /* ── CTA ── */
 .cta{background:var(--grad);color:#fff;border-radius:24px;padding:32px 22px;margin-top:20px;box-shadow:var(--sombra);text-align:center}
 .cta h2{margin:0 0 10px;font-size:clamp(22px,5.4vw,30px);font-weight:500;letter-spacing:-.03em;line-height:1.15;text-wrap:balance}
-.cta p{margin:0 auto 22px;font-size:14.4px;color:#D6E7F4;max-width:40ch}
-.btn{
-  display:flex;align-items:center;justify-content:center;width:100%;
-  padding:15px 20px;border-radius:999px;text-decoration:none;
-  font-size:15.4px;font-weight:600;margin-bottom:10px;transition:transform .18s ease;
-}
+.cta p{margin:0 auto 22px;font-size:14.4px;color:#DAE9F5;max-width:40ch}
+.btn{display:flex;align-items:center;justify-content:center;width:100%;padding:15px 20px;border-radius:999px;text-decoration:none;font-size:15.4px;font-weight:600;margin-bottom:10px;transition:transform .18s ease}
 .btn:hover{transform:translateY(-1px)}
-.btn-wa{background:#fff;color:var(--marca-esc)}
-.btn-wa2{background:rgba(255,255,255,.14);color:#fff;border:1.5px solid rgba(255,255,255,.4)}
-.btn-tel{background:transparent;color:#DCEAF5;border:1.5px solid rgba(255,255,255,.35)}
-.insta{display:inline-block;margin-top:14px;color:#B9D6EE;font-size:13px;text-decoration:none}
+.btn-wa{background:#fff;color:#0A3A63}
+.btn-wa2{background:rgba(255,255,255,.15);color:#fff;border:1.5px solid rgba(255,255,255,.42)}
+.btn-tel{background:transparent;color:#DFEBF6;border:1.5px solid rgba(255,255,255,.35)}
+.insta{display:inline-block;margin-top:14px;color:#BBD7EC;font-size:13px;text-decoration:none}
 .insta:hover{color:#fff}
-.resumo{margin:20px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);font-size:12.6px;color:#B9D6EE;line-height:1.6;max-width:46ch}
+.resumo{margin:20px auto 0;padding-top:16px;border-top:1px solid rgba(255,255,255,.16);font-size:12.6px;color:#BBD7EC;line-height:1.6;max-width:46ch}
 .rodape{text-align:center;font-size:12.2px;color:var(--suave);margin:26px 0 40px}
 .rodape a{color:var(--marca-esc)}
 
 /* ── banner cookies ── */
-.cookies{
-  position:fixed;left:12px;right:12px;bottom:12px;z-index:60;background:var(--escuro);color:#E7EEF4;
-  border-radius:18px;padding:16px 18px;display:none;gap:14px;flex-direction:column;box-shadow:0 22px 54px -22px rgba(0,0,0,.6);
-}
+.cookies{position:fixed;left:12px;right:12px;bottom:12px;z-index:60;background:var(--escuro);color:#E7EEF4;border-radius:18px;padding:16px 18px;display:none;gap:14px;flex-direction:column;box-shadow:0 22px 54px -22px rgba(0,0,0,.6)}
 .cookies.mostrar{display:flex}
 .cookies p{margin:0;font-size:13px;line-height:1.5;color:#C3D2DE}
 .cookies-btns{display:flex;gap:9px}
@@ -203,10 +179,9 @@ h2.sec{margin:0 0 6px;font-size:clamp(20px,4.8vw,26px);font-weight:500;letter-sp
 
 <nav class="topo">
   <a class="perfil" href="https://www.instagram.com/equipasoares.pt/" target="_blank" rel="noopener">
-    <img src="data:image/webp;base64,UklGRvIEAABXRUJQVlA4IOYEAACQJwCdASrAAMAAPj0ejUSiJSEmJlLoOMAHiWcHBIex06VADhDKP+HUnPUf2AcbCUA/Puer4ifSr8wHk0+p30AOli9ADphf2wygqoLAzFenxrnizqZngtE4AHpeLlHZcQlZhPhuKOosJesoqu/00GwrCM5d1jEa/ZJL8wLlzHe6R0KU7jcMHCwkIBtdRLAPSIQa7YohaZ4AdjQuFSvCmZrejv2Q47q0ihT/8MsHpsG+xZWUyTXvyaGj2IPN0jKfJc6n3COiu1YWt2O8PCMw6UrarNiOoctWGBp7wEdy9nGE+4qYDlB3pWNeax1hik9f9tMOwKCVOpLMZb7OdkD/0jVaeWQrHpdeOJPmCeqCkGvI4eYD9hjraoBCOq5B/QrvSYmTIT7InbnngjcpetBSl+lJm68kqw48JxbTdp+t5zJ+o4uW8jgAAP7QBEnWP/4ILtRyfaX/8pX+fP3ZQpb/1U+Aom5Dntnbu9gnokc9Qz9H22ZP+K1Ihx8pPI891/HsHVfL8T7CEdcPZHh9V62CzDZXWfHY2xXUgexZ0UehwWwFOG9gbPWXbmBIM2XJbtPmfGI8qZFTzbH1w0zyM3u+Zw5FsbtvPcZtjyIu2B1LNRU9GhVBj7cCH7Pmnk6/Hkfiqm6rYI15b27jZDM1cUNaidraTzFPDhId+lC/nEw/vgze56kcgLIvVXS0CZgosDGExxdh1lXqLhq25GwgEncgZd65l4xUqL+NadcY2VYzk2IphbNF0o7QeDLEGcKGLLNr1LE4iINMPERzED4liBDUWlfcve1JceAfzW9xr8+TpqdTLoG19WF4Sjej1utre3n5DqUCy0XiYVTYVX7u9eunDc6o+7m1IgTj8OwZLxwNpX51s8kMlLzSvr/LVqKLHzfftHwOVJQbs7aH1DGhsnyxkHlz2wK0QorMqxbJhnvSk5HRdxExRGBwsnf00R9vinLPQlgFJ9Yoqwq51NvZ8PmCe8jgyP8xOKG056B56Wx/LbWoAEAWP6ezzWdPPKCcwOo4a9qtDXTpP6Esps1L6XRJRPDzAroj0K9OSt0Ej+nQbTV4sGliI2VOY4uluV+ACA4aF1FhTrPb1vulT3UmR8MLevf1uRZpy5MuZXP22YDQlUpcGPYjKKN/y8Gj3e6wE4vwXGD1VTRJn3n8Nnnsqp56tpiT398CDuluTn/VPeNJGNwD8igSxZmXslLAdgM4m6DYMfQXjzfvxZpgrhUp2yBdU6E+5/+wStv52X6GorcYalfhWk2mJiOOC72iokNwDTc/o88hMkB803YA672OOBhLleVhcSshr7nnZO8eSkD6eV/fc+MdO5ZP6qvtL2QI2gSmohRDn1n97SF9XViu4EdzJuQVQw31CWE33gF/lvzR+hl0OlFaryrgwCgFUGOGoXqwQctHLSe9h3PdsN4C6+jb0+Kboiu6737SVBg0WL44RY9n3A5eFx12UqkhPQVbk2yxlNeVYmC3ZQsbRnmWRts0bu7GIyu+hC0f+RyC/iJLBqTos7ZoNws4Yeb6WjiO8Pqc6nfR4gWhzxCULRd6WCqP7l1HjaJXuq1LEumg+MLoAnj/VFs4A1TcxrSEBRja/1aoEa9RdjBX4WbCr75lALM8LDNDnk8e/58MC7cAVOBRjHd6UVEYcAgtWKa6IMNvfeB6DCsVqRWAAAA=" alt="Equipa Soares" width="38" height="38">
+    <img src="data:image/webp;base64,UklGRvIEAABXRUJQVlA4IOYEAACQJwCdASrAAMAAPj0ejUSiJSEmJlLoOMAHiWcHBIex06VADhDKP+HUnPUf2AcbCUA/Puer4ifSr8wHk0+p30AOli9ADphf2wygqoLAzFenxrnizqZngtE4AHpeLlHZcQlZhPhuKOosJesoqu/00GwrCM5d1jEa/ZJL8wLlzHe6R0KU7jcMHCwkIBtdRLAPSIQa7YohaZ4AdjQuFSvCmZrejv2Q47q0ihT/8MsHpsG+xZWUyTXvyaGj2IPN0jKfJc6n3COiu1YWt2O8PCMw6UrarNiOoctWGBp7wEdy9nGE+4qYDlB3pWNeax1hik9f9tMOwKCVOpLMZb7OdkD/0jVaeWQrHpdeOJPmCeqCkGvI4eYD9hjraoBCOq5B/QrvSYmTIT7InbnngjcpetBSl+lJm68kqw48JxbTdp+t5zJ+o4uW8jgAAP7QBEnWP/4ILtRyfaX/8pX+fP3ZQpb/1U+Aom5Dntnbu9gnokc9Qz9H22ZP+K1Ihx8pPI891/HsHVfL8T7CEdcPZHh9V62CzDZXWfHY2xXUgexZ0UehwWwFOG9gbPWXbmBIM2XJbtPmfGI8qZFTzbH1w0zyM3u+Zw5FsbtvPcZtjyIu2B1LNRU9GhVBj7cCH7Pmnk6/Hkfiqm6rYI15b27jZDM1cUNaidraTzFPDhId+lC/nEw/vgze56kcgLIvVXS0CZgosDGExxdh1lXqLhq25GwgEncgZd65l4xUqL+NadcY2VYzk2IphbNF0o7QeDLEGcKGLLNr1LE4iINMPERzED4liBDUWlfcve1JceAfzW9xr8+TpqdTLoG19WF4Sjej1utre3n5DqUCy0XiYVTYVX7u9eunDc6o+7m1IgTj8OwZLxwNpX51s8kMlLzSvr/LVqKLHzfftHwOVJQbs7aH1DGhsnyxkHlz2wK0QorMqxbJhnvSk5HRdxExRGBwsnf00R9vinLPQlgFJ9Yoqwq51NvZ8PmCe8jgyP8xOKG056B56Wx/LbWoAEAWP6ezzWdPPKCcwOo4a9qtDXTpP6Esps1L6XRJRPDzAroj0K9OSt0Ej+nQbTV4sGliI2VOY4uluV+ACA4aF1FhTrPb1vulT3UmR8MLevf1uRZpy5MuZXP22YDQlUpcGPYjKKN/y8Gj3e6wE4vwXGD1VTRJn3n8Nnnsqp56tpiT398CDuluTn/VPeNJGNwD8igSxZmXslLAdgM4m6DYMfQXjzfvxZpgrhUp2yBdU6E+5/+wStv52X6GorcYalfhWk2mJiOOC72iokNwDTc/o88hMkB803YA672OOBhLleVhcSshr7nnZO8eSkD6eV/fc+MdO5ZP6qvtL2QI2gSmohRDn1n97SF9XViu4EdzJuQVQw31CWE33gF/lvzR+hl0OlFaryrgwCgFUGOGoXqwQctHLSe9h3PdsN4C6+jb0+Kboiu6737SVBg0WL44RY9n3A5eFx12UqkhPQVbk2yxlNeVYmC3ZQsbRnmWRts0bu7GIyu+hC0f+RyC/iJLBqTos7ZoNws4Yeb6WjiO8Pqc6nfR4gWhzxCULRd6WCqP7l1HjaJXuq1LEumg+MLoAnj/VFs4A1TcxrSEBRja/1aoEa9RdjBX4WbCr75lALM8LDNDnk8e/58MC7cAVOBRjHd6UVEYcAgtWKa6IMNvfeB6DCsVqRWAAAA=" alt="Equipa Soares" width="46" height="46">
     <span><b>Equipa Soares</b><span class="arroba">@equipasoares.pt</span></span>
   </a>
-  <span class="etiq-topo">Diagnóstico</span>
 </nav>
 
 <header class="veredicto">
@@ -233,15 +208,15 @@ h2.sec{margin:0 0 6px;font-size:clamp(20px,4.8vw,26px);font-weight:500;letter-sp
     </div>
 
     <div class="eixo">
-      <div class="eixo-topo"><span class="eixo-nome">Preço vs. mercado</span><span class="eixo-val" id="v-preco"></span></div>
-      <div class="trilho"><i id="b-preco"></i></div>
-      <p class="eixo-leg">Mede a solidez da origem do seu valor, não o valor em si.</p>
+      <div class="eixo-topo"><span class="eixo-nome">Estado do imóvel</span><span class="eixo-val" id="v-estado"></span></div>
+      <div class="trilho"><i id="b-estado"></i></div>
+      <p class="eixo-leg">Mede o que o comprador vai encontrar na visita e quanto isso pesa na proposta.</p>
     </div>
 
     <div class="eixo">
-      <div class="eixo-topo"><span class="eixo-nome">Estado e prontidão</span><span class="eixo-val" id="v-estado"></span></div>
-      <div class="trilho"><i id="b-estado"></i></div>
-      <p class="eixo-leg">Mede a facilidade de mostrar e vender o imóvel tal como está hoje.</p>
+      <div class="eixo-topo"><span class="eixo-nome">Posição no mercado</span><span class="eixo-val" id="v-mercado"></span></div>
+      <div class="trilho"><i id="b-mercado"></i></div>
+      <p class="eixo-leg">Mede o desgaste do anúncio e a liberdade que tem para mudar de estratégia.</p>
     </div>
   </section>
 
@@ -327,8 +302,8 @@ function pintar(idBarra, idValor, v){
   setTimeout(function(){ b.style.width = v + '%'; }, 160);
 }
 pintar('b-doc','v-doc', D.doc);
-pintar('b-preco','v-preco', D.preco);
 pintar('b-estado','v-estado', D.estado);
+pintar('b-mercado','v-mercado', D.mercado);
 
 /* ── 3 · checklist de documentos ── */
 var ONDE = {
@@ -368,25 +343,29 @@ if(D.travoes.length === 0){
   lt.innerHTML = h;
 }
 
-/* ── 5 · próximos passos (ordenados pelo caso concreto) ── */
+/* ── 5 · próximos passos, ordenados pelo caso concreto ── */
 var passos = [];
 function add(t, p){ passos.push({t:t, p:p}); }
 
-if(D.faltam.indexOf('Certificado energético') > -1)
-  add('Peça já o certificado energético','É o único documento que impede legalmente o anúncio. Marque a visita do perito esta semana, o resto pode andar em paralelo.');
-if(A.acordo === 'Ainda não há acordo entre todos' || A.acordo === 'Não sei / ainda não falámos')
-  add('Feche o acordo entre os proprietários','Antes de mostrar a casa a quem quer que seja, ponha por escrito quem vende, por quanto e como se divide. Evita o negócio cair no fim.');
-if(D.preco < 55)
-  add('Peça uma avaliação profissional','O seu valor não está ancorado em dados de mercado. Uma avaliação gratuita mostra o intervalo real em que a sua casa vende.');
-if(A.ocupacao === 'Está arrendado a inquilinos')
-  add('Defina a estratégia com o inquilino','Decida se vende com contrato em vigor, o que reduz compradores e preço, ou se negoceia a saída. São dois caminhos diferentes.');
 if(A.encargos === 'Penhora ou processo judicial')
   add('Trate do levantamento da penhora','Sem isso não há escritura. É o primeiro passo, antes de qualquer investimento em anúncios.');
+if(D.faltam.indexOf('Certificado energético') > -1)
+  add('Peça já o certificado energético','É o único documento que impede legalmente o anúncio. Marque a visita do perito esta semana, o resto pode andar em paralelo.');
+if(A.motivo === 'Recebi uma herança')
+  add('Confirme a partilha e o registo','Antes de anunciar, garanta que a partilha está concluída e o imóvel registado em nome de quem vai vender. Evita o negócio cair no fim.');
+if(A.encargos === 'Usufruto')
+  add('Fale com o usufrutuário','A venda precisa do consentimento dele. Trate disso antes de marcar visitas.');
 if(D.faltam.length > 0)
   add('Reúna a documentação em falta','Falta' + (D.faltam.length>1?'m':'') + ': ' + D.faltam.join(', ') + '. Comece pelos gratuitos e online, caderneta e certidão saem no próprio dia.');
+if(A.estado === 'Precisa de obras profundas' || A.estado === 'Devoluto ou muito degradado')
+  add('Decida entre obra e desconto','Peça dois orçamentos e compare com o desconto que o mercado vai exigir. Muitas vezes compensa vender como está, desde que o preço reflita isso.');
+else if(A.estado === 'Precisa de obras ligeiras')
+  add('Faça só o que se vê','Pinturas, silicones e loiças velhas custam pouco e mudam a primeira impressão. Não avance para obras grandes antes de falar com um consultor.');
 if(A.tempoMercado === 'Mais de 6 meses' || A.tempoMercado === '3 a 6 meses')
   add('Reposicione o anúncio','Um anúncio antigo precisa de mais do que baixar o preço: fotografia nova, texto novo e uma razão para o comprador voltar a olhar.');
-add('Prepare a casa para as visitas','Despersonalize, arrume e trate da luz. É o investimento mais barato com maior impacto no valor final.');
+if(A.jaMercado === 'Sim, com agência em exclusivo')
+  add('Confirme a data de fim do contrato','Veja quando termina a exclusividade e o prazo de aviso prévio. É isso que define quando pode mudar de estratégia.');
+add('Peça uma avaliação profissional','Sem um valor ancorado em vendas reais fechadas na sua zona, tudo o resto é adivinhar. É gratuito e é o passo que destrava a decisão.');
 
 var hp = '';
 passos.slice(0,4).forEach(function(x, i){
@@ -411,8 +390,8 @@ if(A.avaliacao === 'Sim, quero marcar'){
 }
 
 document.getElementById('resumo').textContent =
-  'Diagnóstico: ' + contexto + (A.area ? ' · ' + A.area + ' m²' : '') +
-  ' · Documentação ' + D.doc + '% · Preço ' + D.preco + '% · Estado ' + D.estado + '%.';
+  'Diagnóstico: ' + contexto +
+  ' · Documentação ' + D.doc + '% · Estado ' + D.estado + '% · Mercado ' + D.mercado + '%.';
 })();
 </script>
 </body>
